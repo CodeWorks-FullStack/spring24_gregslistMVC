@@ -6,7 +6,7 @@ import { generateId } from "../utils/GenerateId.js"
 export class Car {
   // constructor(make, model, year, color, price, mileage, automatic, imgUrl) { replaced with data object
   constructor(data) {
-    this.id = generateId()
+    this.id = generateId() // we give the car a UNIQUE id, so we have something to reference it by with our other methods
     this.make = data.make
     this.model = data.model
     this.year = parseInt(data.year) // forms always return strings for everything, so changing it back into a number, could be beneficial
@@ -17,6 +17,8 @@ export class Car {
     this.imgUrl = data.imgUrl
   }
 
+
+  // NOTE this get represents the car's card we will see on the page
   get CarCard() {
     return `
     <div class="col-6 col-md-4">
@@ -45,6 +47,7 @@ export class Car {
     }
   }
 
+  // we can use this to get the correct icon, based on our bool
   get TransmissionIcon() {
     if (this.automatic) {
       return 'cog-box'

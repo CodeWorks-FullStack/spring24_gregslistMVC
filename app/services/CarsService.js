@@ -12,8 +12,8 @@ class CarsService {
     // const createdCar = new Car(carData.make, carData.model...) this is no fun
     const createdCar = new Car(carData)
     console.log('✨🚗', createdCar);
-    AppState.cars.push(createdCar)
-    this.saveCars()
+    AppState.cars.push(createdCar) // push adds the new car to the end of the appstate. you can use .unshift() if you want to add it to the front
+    this.saveCars() // then we save to local storage so our cars will persist through refresh
   }
 
   deleteCar(carId) {
