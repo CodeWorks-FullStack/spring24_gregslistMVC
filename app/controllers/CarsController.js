@@ -1,8 +1,7 @@
 import { AppState } from "../AppState.js";
 import { carsService } from "../services/CarsService.js";
 import { getFormData } from "../utils/FormHandler.js";
-
-
+import { Pop } from "../utils/Pop.js";
 
 
 export class CarsController {
@@ -35,11 +34,26 @@ export class CarsController {
     carsService.createCar(carData)
     event.target.reset() // clears out the form so we can enter more data in and create more cars!
     this.drawCars()
+    Pop.toast('Car Created!', 'success', 'top')
+    this.closeModal()
   }
 
-  deleteCar(carId) {
+  async deleteCar(carId) {
+    // let choice = window.confirm('are you sure you want to delete that?')
+    console.log('before confirm');
+    let choice = await Pop.confirm("Are you sure you want to delete that?", 'This action cannot be reversed!', 'Yeah Chuck it', 'warning')
+    console.log('after confirm');
+    if (choice == false) return // end early if they clicked no
+
     console.log('deleting', carId);
     carsService.deleteCar(carId)
     this.drawCars()
+    // Pop.toast("Car Deleted!")
+  }
+
+  closeModal() {
+    // NOTE some good ol, bootstrap magic to hide the modal after the form submission goes through
+    // this is showing and error, cause it doesn't know we will have bootstrap when the page loads, cause it is only loaded, once the index.html loads into the app
+    bootstrap.Modal.getOrCreateInstance('#car-form-modal').hide()
   }
 }
